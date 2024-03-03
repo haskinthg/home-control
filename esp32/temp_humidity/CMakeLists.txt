@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.5)
+set (CMAKE_CXX_STANDARD 23)
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+include_directories($ENV{IDF_PATH}/)
+project(mps_kp)
+set(COMPONENTS main dht11)

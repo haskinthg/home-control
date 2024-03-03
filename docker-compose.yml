@@ -1,0 +1,44 @@
+version: '3.0'
+
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    ports:
+      - "1888:1888"
+      - "9001:9001" #for websocket
+    volumes:
+      - ./mqtt-broker/config/:/mosquitto/config/
+      - ./mqtt-broker/data/:/mosquitto/data/
+#      - ./log:/mosquitto/log:rw
+    restart: unless-stopped
+    networks:
+      - mqtt5-network
+
+  webapp:
+    image: 'docker-spring-boot-postgres:latest'
+    build:
+      context: ./smart_home
+    ports:
+      - "8080:8080"
+    networks:
+      - mqtt5-network
+    restart: always
+    depends_on:
+      - mqtt-broker
+
+  front:
+    build: ./smart_home_front/
+    ports:
+      - "9999:80"
+    volumes:
+        - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - mqtt5-network
+    restart: always
+    depends_on:
+      - webapp
+
+networks:
+  mqtt5-network:
+    driver: bridge

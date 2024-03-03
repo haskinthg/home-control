@@ -1,0 +1,38 @@
+.main {
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 25px;
+}
+
+/* Медиа-запросы для изменения количества блоков на строке */
+@media screen and (max-width: 480px) {
+  .main {
+    grid-template-columns: 1fr; /* В мобильной версии один блок на строке */
+  }
+}
+
+/* Медиа-запросы для изменения количества блоков на строке */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .main {
+    grid-template-columns: repeat(2, 250px); /* Две колонки на широком экране */
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .main {
+    grid-template-columns: repeat(3, 250px); /* 3 колонки на широком экране */
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .main {
+    grid-template-columns: repeat(4, 240px); /* 4 колонки на более широком экране */
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .main {
+    grid-template-columns: repeat(5, 240px); /* 5 колонок на самом широком экране */
+  }
+}
